@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h2>Welcome</h2>
+
+<h3>Authenticated username details:</h3>
+<br>
+
+<table >
+    <tr align="left">
+        <th>ID</th>
+        <td th:text="${user.getId()}"></td>
+    </tr>
+    <tr>
+        <th>Username</th>
+        <td th:text="${user.getUsername()}"></td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td th:text="${user.getName()}"></td>
+    </tr>
+    <tr>
+        <th>E-mail</th>
+        <td th:text="${user.getEmail()}"></td>
+    </tr>
+    <tr>
+        <th>Roles</th>
+        <td th:text="${user.getRoles()}"></td>
+    </tr>
+</table>
+
+<br>
+<br>
+<a th:href="@{/logout}">Logout</a>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 target/
-/.idea/
-/.mvn/
+.idea/
+.mvn/
 HELP.md
 *.iml
-/mvnw
-/mvnw.cmd
+mvnw
+mvnw.cmd

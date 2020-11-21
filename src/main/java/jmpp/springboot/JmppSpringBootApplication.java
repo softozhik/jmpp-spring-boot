@@ -9,5 +9,4 @@ public class JmppSpringBootApplication {
     public static void main(String[] args) {
         SpringApplication.run(JmppSpringBootApplication.class, args);
     }
-
 }
