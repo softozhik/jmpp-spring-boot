@@ -5,7 +5,7 @@
     <title>Edit User</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
     <label for="username">Enter Username: </label>
     <input type="text" th:field="*{username}" id="username"/>
 
@@ -22,9 +22,10 @@
         <input type="checkbox" th:field="*{roles}" name="allRoles"
                th:each="role : ${allRoles}"
                th:text="${role.getRole()}"
-               th:value="${role.getRole()}"
+               th:value="${role.getId()}"
         />
     </label>
+    <br>
 
     <input type="submit" value="Update!"/>
 </form>

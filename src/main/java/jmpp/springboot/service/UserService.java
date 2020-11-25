@@ -63,12 +63,13 @@ public class UserService  {
 
     @Transactional
     public void update(Long id, User changeUser) {
-        User updateUser = getUser(id);
-        updateUser.setUsername(changeUser.getUsername());
-        updateUser.setName(changeUser.getName());
-        updateUser.setEmail(changeUser.getEmail());
-        updateUser.setPassword(changeUser.getPassword());
-        updateUser.setRoles(changeUser.getRoles());
+//        User updateUser = getUser(id);
+//        updateUser.setUsername(changeUser.getUsername());
+//        updateUser.setName(changeUser.getName());
+//        updateUser.setEmail(changeUser.getEmail());
+//        updateUser.setPassword(changeUser.getPassword());
+//        updateUser.setRoles(changeUser.getRoles());
+        em.merge(changeUser);
     }
 
 }

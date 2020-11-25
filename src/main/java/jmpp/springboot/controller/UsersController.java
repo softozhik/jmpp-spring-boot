@@ -52,16 +52,17 @@ public class UsersController {
         return "edit";
     }
 
-    @PatchMapping("/admin/edit/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id,
-                         @RequestParam(value = "roles") String[] roles) {
+    @PostMapping("/admin/edit/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+//                         @RequestParam(value = "roles") Set<Role> roles) {
 //        Set<Role> roleSet = new HashSet<>();
 //        for (String roleName : roles) {
 //            roleSet.add(roleDao.findRoleByRole(roleName));
 //        }
 //        user.setRoles(roleSet);
 //        System.out.println("изменение ролей");
-        user.setRoles(userService.newRoles(roles));
+//        System.out.println("------------------------\nновые роли:" + roles);
+//        user.setRoles(userService.newRoles(roles));
         userService.update(id, user);
         return "redirect:/admin";
     }
@@ -103,10 +104,11 @@ public class UsersController {
         return "user";
     }
 
-    @ModelAttribute("logoutLink")
-    @GetMapping(value = "logout")
-    public String logout() {
-        return "logout";
-    }
+//    @ModelAttribute("logoutLink")
+////    @GetMapping(value = "logout")
+//    @GetMapping("/logout")
+//    public String logout() {
+//        return "redirect:/";
+//    }
 
 }
