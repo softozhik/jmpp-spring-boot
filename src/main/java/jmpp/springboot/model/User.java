@@ -44,7 +44,7 @@ public class User {
     }
 
     public User(String username, String name, String email, String password, Set<Role> roles) {
-        this.id = id;
+//        this.id = id;
         this.username = username;
         this.name = name;
         this.email = email;
@@ -98,5 +98,17 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package jmpp.springboot.controller;
 
+import jmpp.springboot.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,9 @@ import jmpp.springboot.dao.UserDao;
 import jmpp.springboot.model.User;
 import jmpp.springboot.service.UserService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UsersController {
@@ -23,7 +26,7 @@ public class UsersController {
     private UserService userService;
 
 
-    @GetMapping(value = "/hello")
+    @GetMapping(value = "/")
     public String hello(ModelMap model) {
         String messages = "Hello!";
         model.addAttribute("messages", messages);
@@ -41,21 +44,23 @@ public class UsersController {
 
     @GetMapping("/admin/edit/{id}")
     public String edit(ModelMap model, @PathVariable("id") Long id) {
-        model.addAttribute("roles", roleDao.findAll());
-        model.addAttribute("user", userService.getUser(id));
+        System.out.println("все роли: " + roleDao.findAll());
+        model.addAttribute("allRoles", roleDao.findAll());
+        model.addAttribute("user", userDao.getOne(id));
+        System.out.println("текущий пользователь: " + userDao.getOne(id));
+
         return "edit";
     }
 
     @PatchMapping("/admin/edit/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id,
-                         @RequestParam(value = "roles") List roles) {
-//        System.out.println(roles);
+                         @RequestParam(value = "roles") String[] roles) {
 //        Set<Role> roleSet = new HashSet<>();
 //        for (String roleName : roles) {
 //            roleSet.add(roleDao.findRoleByRole(roleName));
 //        }
 //        user.setRoles(roleSet);
-        System.out.println("изменение ролей");
+//        System.out.println("изменение ролей");
         user.setRoles(userService.newRoles(roles));
         userService.update(id, user);
         return "redirect:/admin";
@@ -71,7 +76,13 @@ public class UsersController {
 
     @PostMapping("/admin")
     public String create(@ModelAttribute("user") User user,
-                         @RequestParam(value = "allRoles") List roles) {
+                         @RequestParam(value = "allRoles") String[] roles) {
+//        Set<Role> roleSet = new HashSet<>();
+//        for (String roleName : roles) {
+//            roleSet.add(roleDao.findRoleByRole(roleName));
+//        }
+//        user.setRoles(roleSet);
+//        System.out.println("изменение ролей");
         user.setRoles(userService.newRoles(roles));
         userDao.save(user);
         return "redirect:/admin";

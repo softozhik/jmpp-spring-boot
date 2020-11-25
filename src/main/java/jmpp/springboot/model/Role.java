@@ -12,14 +12,13 @@ public class Role {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     private String role;
 
     @ManyToMany(mappedBy = "roles")
-
     private Set<User> users;
 
     public Role() {
@@ -52,5 +51,10 @@ public class Role {
     public Role(Long id, String role) {
         this.id = id;
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return this.role;
     }
 }

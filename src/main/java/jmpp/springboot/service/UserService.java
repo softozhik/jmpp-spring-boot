@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.SequenceGenerator;
@@ -20,9 +21,8 @@ import java.util.Set;
 @Transactional
 public class UserService  {
 
-    @PersistenceUnit
-    EntityManagerFactory emf;
-
+    @Autowired
+    EntityManager em;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -53,11 +53,11 @@ public class UserService  {
         return userDao.findUserByUsername(username);
     }
 
-    public Set<Role> newRoles(List roles) {
-        Set<Role> roleSet = new HashSet<>(roles);
-//        for (roleName : roles) {
-//            roleSet.add(roleDao.findRoleByRole(roleName));
-//        }
+    public Set<Role> newRoles(String[] roles) {
+        Set<Role> roleSet = new HashSet<>();
+        for (String roleName : roles) {
+            roleSet.add(roleDao.findRoleByRole(roleName));
+        }
         return roleSet;
     }
 
