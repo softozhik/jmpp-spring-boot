@@ -1,13 +1,10 @@
 package jmpp.springboot.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table
-//@Data
 public class User {
 
     @Id

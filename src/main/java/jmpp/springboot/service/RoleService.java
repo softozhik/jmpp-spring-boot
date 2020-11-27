@@ -1,15 +1,12 @@
 package jmpp.springboot.service;
 
-import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.stereotype.Service;
-        import org.springframework.transaction.annotation.Transactional;
-        import jmpp.springboot.dao.RoleDao;
-        import jmpp.springboot.model.Role;
+import org.springframework.transaction.annotation.Transactional;
+import jmpp.springboot.model.Role;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Service
@@ -17,32 +14,41 @@ import java.util.List;
 public class RoleService {
 
     @Autowired
-    RoleDao roleDao;
-
-    @Autowired
     EntityManager em;
 
-    public List<Role> findAll() {
-        return roleDao.findAll();
+    public List<Role> listAll() {
+        List<Role> allRoles;
+        allRoles = em.createQuery("select r from Role r").getResultList();
+        return allRoles;
     }
 
-    public Role getOne(Long id) {
-        return roleDao.getOne(id);
+    public void create(Long id, String role) {
+        em.persist(new Role(id, role));
+    }
+
+    public Role getRole(Long id) {
+        TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.id = :id", Role.class);
+        Role role = query.setParameter("id", id).getSingleResult();
+        return role;
     }
 
     public void addRoles() {
-        if (!roleDao.existsById(1L)) {
-            roleDao.save(new Role(1L, "ROLE_ADMIN"));
+        if (getRole(1L) == null) {
+            create(1L, "ROLE_ADMIN");
         }
-        if (!roleDao.existsById(2L)) {
-            roleDao.save(new Role(2L, "ROLE_USER"));
+        if (getRole(2L) == null) {
+            create(2L, "ROLE_USER");
         }
-        if (!roleDao.existsById(3L)) {
-//            roleDao.save(new Role(3L, "ROLE_OVER"));
-            em.persist(new Role(3L, "ROLE_OVER"));
+        if (getRole(3L) == null) {
+            create(3L, "ROLE_OVER");
         }
     }
 
+    public Role findRoleByName(String roleName) {
+        TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.role = :role", Role.class);
+        Role role = query.setParameter("role", roleName).getSingleResult();
+        return role;
+    }
 
 }
 
