@@ -31,7 +31,7 @@
 <div class="container-fluid">
 
     <div style="height: 100vh" class="row">
-        <div class="col-3 pr-0">
+        <div class="col-2 pr-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
                    aria-controls="v-pills-home" aria-selected="true">Admin</a>
@@ -39,7 +39,7 @@
                    aria-controls="v-pills-profile" aria-selected="false">User</a>
             </div>
         </div>
-        <div class="col-9 bg-light">
+        <div class="col-10 bg-light">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                      aria-labelledby="v-pills-home-tab">
@@ -48,21 +48,56 @@
 
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-userstable" role="tab" aria-controls="nav-home" aria-selected="true">Users table</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-newuser" role="tab" aria-controls="nav-profile" aria-selected="false">New user</a>
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
+                               href="#nav-userstable" role="tab" aria-controls="nav-home" aria-selected="true">Users
+                                table</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-newuser"
+                               role="tab" aria-controls="nav-profile" aria-selected="false">New user</a>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-userstable" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="tab-pane fade show active" id="nav-userstable" role="tabpanel"
+                             aria-labelledby="nav-home-tab">
 
-                            <tr>
-                                <th width="150">ID</th>
-                                <th width="150">Username</th>
-                                <th width="150">Name</th>
-                                <th width="150">E-mail</th>
-                                <th width="150">Roles</th>
-                                <th width="150">Password</th>
-                            </tr>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="msg : ${users}">
+                                    <tr>
+                                        <th scope="row" th:text="${msg.getId()}">
+                                        </td>
+                                        <th scope="row" th:text="${msg.getUsername()}">
+                                        </td>
+                                        <th scope="row" th:text="${msg.getName()}">
+                                        </td>
+                                        <th scope="row" th:text="${msg.getEmail()}">
+                                        </td>
+                                        <th scope="row" th:text="${msg.getRoles()}">
+                                        </td>
+                                        <th scope="row">
+                                            <a class="btn btn-info text-white"
+                                               th:href="@{/admin/edit/{id}(id=${msg.getId()})}" role="button">Edit</a>
+                                        </td>
+                                        <th scope="row">
+                                            <button class="btn btn-danger" type="submit" th:method="DELETE"
+                                                    th:action="@{/admin/{id}(id=${msg.getId()})}">Delete
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
 
                         </div>
                         <div class="tab-pane fade" id="nav-newuser" role="tabpanel" aria-labelledby="nav-profile-tab">
