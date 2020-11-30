@@ -110,7 +110,7 @@
 
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="id" class="form-control-label">ID</label>
-                                                                    <input type="text" class="form-control" th:name="id"
+                                                                    <input disabled type="text" class="form-control" th:name="id"
                                                                            th:value="${msg.getId()}" id="id">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
@@ -129,12 +129,12 @@
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="email"
                                                                            class="form-control-label">Email</label>
-                                                                    <input type="text" class="form-control" th:name="email"
+                                                                    <input type="email" class="form-control" th:name="email"
                                                                            th:value="${msg.getEmail()}" id="email">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="password" class="form-control-label">Password</label>
-                                                                    <input type="text" class="form-control "
+                                                                    <input type="password" class="form-control "
                                                                            th:name="password"
                                                                            th:value="${msg.getPassword()}" id="password">
                                                                 </div>
@@ -149,7 +149,7 @@
                                                                         />
                                                                     </label>
 -->
-                                                                    <select class="custom-select w-auto" size="3"  multiple name="allRoles">
+                                                                    <select class="custom-select w-auto" size="auto"  multiple name="allRoles">
                                                                         <option th:each="role : ${allRoles}"
                                                                                 th:text="${role.getRole()}"
                                                                                 th:value="${role.getRole()}">
@@ -202,31 +202,31 @@
                                                             <form>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="id1" class="form-control-label">ID</label>
-                                                                    <input type="text" class="form-control" th:name="id"
+                                                                    <input disabled type="text" class="form-control" th:name="id"
                                                                            th:value="${msg.getId()}" id="id1">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="dusername"
                                                                            class="form-control-label">Username</label>
-                                                                    <input type="text" class="form-control" th:name="username"
+                                                                    <input disabled type="text" class="form-control" th:name="username"
                                                                            th:value="${msg.getUsername()}" id="dusername">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="dname"
                                                                            class="form-control-label">Name</label>
-                                                                    <input type="text" class="form-control " th:name="name"
+                                                                    <input disabled type="text" class="form-control " th:name="name"
                                                                            th:value="${msg.getName()}" id="dname">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="email1"
                                                                            class="form-control-label">Email</label>
-                                                                    <input type="text" class="form-control" th:name="email"
+                                                                    <input disabled type="email" class="form-control" th:name="email"
                                                                            th:value="${msg.getEmail()}" id="email1">
                                                                 </div>
 
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="password1" class="form-control-label">Password</label>
-                                                                    <input type="text" class="form-control "
+                                                                    <input disabled type="password" class="form-control "
                                                                            th:name="password"
                                                                            th:value="${msg.getPassword()}" id="password1">
                                                                 </div>
@@ -270,7 +270,7 @@
                                 <input type="email" th:field="*{email}" id="nemail"/>
 
                                 <label for="npassword">Enter password: </label>
-                                <input type="text" th:field="*{password}" id="npassword"/>
+                                <input type="password" th:field="*{password}" id="npassword"/>
                                 <br/>
                                 <select class="custom-select" size="3" multiple name="allRoles">
                                     <option th:each="role : ${allRoles}"
