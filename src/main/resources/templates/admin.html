@@ -139,13 +139,22 @@
                                                                            th:value="${msg.getPassword()}" id="password">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
+                                                                   <!--
                                                                     <label>Roles: <br><br>
                                                                         <input type="checkbox" name="allRoles"
                                                                                th:each="role : ${allRoles}"
                                                                                th:text="${role.getRole()} + ' '"
                                                                                th:value="${role.getRole()}"
 
-                                                                        /></label>
+                                                                        />
+                                                                    </label>
+-->
+                                                                    <select class="custom-select w-auto" size="3"  multiple name="allRoles">
+                                                                        <option th:each="role : ${allRoles}"
+                                                                                th:text="${role.getRole()}"
+                                                                                th:value="${role.getRole()}">
+                                                                        </option>
+                                                                    </select>
 
                                                                 </div>
 
@@ -263,13 +272,12 @@
                                 <label for="npassword">Enter password: </label>
                                 <input type="text" th:field="*{password}" id="npassword"/>
                                 <br/>
-                                <label>Roles:
-                                    <input type="checkbox" th:field="*{roles}" name="allRoles"
-                                           th:each="role : ${allRoles}"
-                                           th:text="${role.getRole()}"
-                                           th:value="${role.getRole()}"
-                                    />
-                                </label>
+                                <select class="custom-select" size="3" multiple name="allRoles">
+                                    <option th:each="role : ${allRoles}"
+                                            th:text="${role.getRole()}"
+                                            th:value="${role.getRole()}">
+                                    </option>
+                                </select>
 
                                 <input type="submit" value="Create!"/>
                             </form>
