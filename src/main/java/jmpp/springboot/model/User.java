@@ -1,11 +1,17 @@
 package jmpp.springboot.model;
 
+import jmpp.springboot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
 public class User {
+
 
     @Id
     @Column(name = "id")
@@ -47,6 +53,16 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public User(String username, String name, String email, String password, String[] roles) {
+//        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        Set<Role> roleSet = new UserService().newRoles(roles);
+        this.roles = roleSet;
     }
 
     public Long getId() {

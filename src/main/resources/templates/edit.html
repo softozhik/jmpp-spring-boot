@@ -18,13 +18,14 @@
     <label for="password">Enter password: </label>
     <input type="text" th:field="*{password}" id="password"/>
     <br/>
+    <!--th:field="*{roles}"-->
     <label>Roles:
-        <input type="checkbox" th:field="*{roles}" name="allRoles"
-               th:each="role : ${allRoles}"
-               th:text="${role.getRole()}"
-               th:value="${role.getRole()}"
-        />
-    </label>
+                <input type="checkbox" name="allRoles"
+                       th:each="role : ${allRoles}"
+                       th:text="${role.getRole()}"
+                       th:value="${role.getRole()}"
+                />
+            </label>
     <br>
 
     <input type="submit" value="Update!"/>

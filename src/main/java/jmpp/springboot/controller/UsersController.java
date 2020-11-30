@@ -40,8 +40,8 @@ public class UsersController {
 
     @GetMapping("/admin/edit/{id}")
     public String edit(ModelMap model, @PathVariable("id") Long id) {
-        System.out.println("все роли: " + roleService.listAll());
-        System.out.println("текущий пользователь: " + userService.getUser(id));
+//        System.out.println("все роли: " + roleService.listAll());
+//        System.out.println("текущий пользователь: " + userService.getUser(id));
         model.addAttribute("allRoles", roleService.listAll());
         model.addAttribute("user", userService.getUser(id));
         return "edit";
@@ -49,7 +49,7 @@ public class UsersController {
 
     @PostMapping("/admin/edit/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id, @RequestParam(value = "allRoles") String[] roles) {
-        System.out.println("новые роли: " + roles);
+//        System.out.println("новые роли: " + roles);
         user.setRoles(userService.newRoles(roles));
 //        System.out.println("обновляем пользователя: " + user);
         userService.update(user);
