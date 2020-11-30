@@ -34,6 +34,8 @@ public class UsersController {
     public String allUsers(ModelMap model) {
         List<User> listUsers = userService.listAll();
         model.addAttribute("users", listUsers);
+        model.addAttribute("user", new User());
+        model.addAttribute("allRoles", roleService.listAll());
         return "admin";
     }
 
@@ -72,7 +74,7 @@ public class UsersController {
     }
 
 
-    @PostMapping("/admin/{id}")
+    @PostMapping("/admin/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/admin";

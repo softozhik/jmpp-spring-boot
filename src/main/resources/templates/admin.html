@@ -29,7 +29,6 @@
 -->
 
 <div class="container-fluid">
-
     <div style="height: 100vh" class="row">
         <div class="col-2 pr-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -60,6 +59,8 @@
                              aria-labelledby="nav-home-tab">
 
                             <table class="table table-striped">
+
+
                                 <thead>
                                 <tr>
                                     <th scope="col">Id</th>
@@ -73,41 +74,205 @@
                                 </thead>
                                 <tbody>
                                 <th:block th:each="msg : ${users}">
+
                                     <tr>
                                         <th scope="row" th:text="${msg.getId()}">
-                                        </td>
+                                        </th>
                                         <th scope="row" th:text="${msg.getUsername()}">
-                                        </td>
+                                        </th>
                                         <th scope="row" th:text="${msg.getName()}">
-                                        </td>
+                                        </th>
                                         <th scope="row" th:text="${msg.getEmail()}">
-                                        </td>
+                                        </th>
                                         <th scope="row" th:text="${msg.getRoles()}">
-                                        </td>
+                                        </th>
                                         <th scope="row">
-                                            <a class="btn btn-info text-white"
-                                               th:href="@{/admin/edit/{id}(id=${msg.getId()})}" role="button">Edit</a>
-                                        </td>
-                                        <th scope="row">
-                                            <button class="btn btn-danger" type="submit" th:method="DELETE"
-                                                    th:action="@{/admin/{id}(id=${msg.getId()})}">Delete
+                                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                                    data-target="#edit" th:attrappend="data-target=${msg.getId()}">
+                                                Edit
                                             </button>
 
-                                        </td>
+                                            <!-- Edit -->
+                                            <div class="modal" id="edit" tabindex="-1" role="dialog"
+                                                 th:attrappend="id=${msg.getId()}">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <form th:method="POST"
+                                                              th:action="@{/admin/edit/{id}/(id=${msg.getId()})}">
+                                                            <div class="modal-body">
+
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="id" class="form-control-label">ID</label>
+                                                                    <input type="text" class="form-control" th:name="id"
+                                                                           th:value="${msg.getId()}" id="id">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="username"
+                                                                           class="form-control-label">Login</label>
+                                                                    <input type="text" class="form-control " th:name="username"
+                                                                           th:value="${msg.getUsername()}" id="username">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="name"
+                                                                           class="form-control-label">Name</label>
+                                                                    <input type="text" class="form-control"
+                                                                           th:name="Name"
+                                                                           th:value="${msg.getName()}" id="name">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="email"
+                                                                           class="form-control-label">Email</label>
+                                                                    <input type="text" class="form-control" th:name="email"
+                                                                           th:value="${msg.getEmail()}" id="email">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="password" class="form-control-label">Password</label>
+                                                                    <input type="text" class="form-control "
+                                                                           th:name="password"
+                                                                           th:value="${msg.getPassword()}" id="password">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label>Roles: <br><br>
+                                                                        <input type="checkbox" name="allRoles"
+                                                                               th:each="role : ${allRoles}"
+                                                                               th:text="${role.getRole()} + ' '"
+                                                                               th:value="${role.getRole()}"
+
+                                                                        /></label>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+
+                                                                <form
+                                                                        th:action="@{/admin/edit/{id}(id=${msg.getId()})}">
+                                                                    <button type="submit" class="btn btn-info">Edit</button>
+                                                                </form>
+
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Edit -->
+
+                                        </th>
+
+
+                                        <th scope="row">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#delete" th:attrappend="data-target=${msg.getId()}">
+                                                Delete
+                                            </button>
+
+                                            <!-- Delete-->
+                                            <div class="modal" id="delete" tabindex="-1" role="dialog"
+                                                 th:attrappend="id=${msg.getId()}">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel2">Delete</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <form>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="id1" class="form-control-label">ID</label>
+                                                                    <input type="text" class="form-control" th:name="id"
+                                                                           th:value="${msg.getId()}" id="id1">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="dusername"
+                                                                           class="form-control-label">Username</label>
+                                                                    <input type="text" class="form-control" th:name="username"
+                                                                           th:value="${msg.getUsername()}" id="dusername">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="dname"
+                                                                           class="form-control-label">Name</label>
+                                                                    <input type="text" class="form-control " th:name="name"
+                                                                           th:value="${msg.getName()}" id="dname">
+                                                                </div>
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="email1"
+                                                                           class="form-control-label">Email</label>
+                                                                    <input type="text" class="form-control" th:name="email"
+                                                                           th:value="${msg.getEmail()}" id="email1">
+                                                                </div>
+
+                                                                <div class="form-group text-center font-weight-bold">
+                                                                    <label for="password1" class="form-control-label">Password</label>
+                                                                    <input type="text" class="form-control "
+                                                                           th:name="password"
+                                                                           th:value="${msg.getPassword()}" id="password1">
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
+
+                                                            <form th:method="DELETE"
+                                                                    th:action="@{/admin/delete/{id}(id=${msg.getId()})}">
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Delete-->
+
+                                        </th>
                                     </tr>
                                 </th:block>
+
                                 </tbody>
-                            </table>
+
+    </table>
 
                         </div>
                         <div class="tab-pane fade" id="nav-newuser" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                            <tr>
-                                <th width="150">Username</th>
-                                <th width="150">Name</th>
-                                <th width="150">E-mail</th>
-                                <th width="150">Password</th>
-                            </tr>
+                            <form th:method="POST" th:action="@{/admin}" th:object="${user}">
+                                <label for="nusername">Enter Username: </label>
+                                <input type="text" th:field="*{username}" id="nusername"/>
+
+                                <label for="nname">Enter name: </label>
+                                <input type="text" th:field="*{name}" id="nname"/>
+
+                                <label for="nemail">Enter e-mail: </label>
+                                <input type="email" th:field="*{email}" id="nemail"/>
+
+                                <label for="npassword">Enter password: </label>
+                                <input type="text" th:field="*{password}" id="npassword"/>
+                                <br/>
+                                <label>Roles:
+                                    <input type="checkbox" th:field="*{roles}" name="allRoles"
+                                           th:each="role : ${allRoles}"
+                                           th:text="${role.getRole()}"
+                                           th:value="${role.getRole()}"
+                                    />
+                                </label>
+
+                                <input type="submit" value="Create!"/>
+                            </form>
 
                         </div>
                     </div>
@@ -123,6 +288,10 @@
             </div>
         </div>
     </div>
+
+
+
+
 
 </div>
 
