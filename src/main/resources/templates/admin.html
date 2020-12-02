@@ -29,6 +29,24 @@
 -->
 
 <div class="container-fluid">
+
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <!--<a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>-->
+        <span class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">
+        <b th:utext="${username.getName()}"></b><span th:utext="' ' + 'with roles:' + ' ' + ${username.getRoles()}"></span></span>
+        <!--<span class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" th:text="${roleSet}"></span>-->
+
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+                data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
     <div style="height: 100vh" class="row">
         <div class="col-2 pr-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">

@@ -2,6 +2,7 @@ package jmpp.springboot.controller;
 
 import jmpp.springboot.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,9 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import jmpp.springboot.model.User;
 import jmpp.springboot.service.UserService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class UsersController {
@@ -31,8 +30,11 @@ public class UsersController {
 
 
     @GetMapping(value = "/admin")
-    public String allUsers(ModelMap model) {
+    @Secured("ROLE_ADMIN")
+    public String allUsers(ModelMap model, Authentication autUser) {
+        User username = userService.findUserByUsername(autUser.getName());
         List<User> listUsers = userService.listAll();
+        model.addAttribute("username", username);
         model.addAttribute("users", listUsers);
         model.addAttribute("user", new User());
         model.addAttribute("allRoles", roleService.listAll());
