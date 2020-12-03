@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -31,13 +32,21 @@ public class UserService  {
         }
     }
 
-    public Set<Role> newRoles(String[] roles) {
+    public User newRoles(User user) {
+        /*
         System.out.println("new roles: " + roles);
         Set<Role> roleSet = new HashSet<>();
         for (String roleName : roles) {
             roleSet.add(roleService.findRoleByName(roleName));
         }
-        return roleSet;
+        */
+        Set<Role> roleSet = new HashSet<>();
+        Iterator iterator = user.getRoles().iterator();
+        while (iterator.hasNext()) {
+            roleSet.add(roleService.findRoleByName(iterator.next().toString()));
+        }
+        user.setRoles(roleSet);
+        return user;
     }
 
     public List<User> listAll() {
@@ -63,10 +72,12 @@ public class UserService  {
 
     @Transactional
     public void update(User changeUser) {
+        newRoles(changeUser);
         em.merge(changeUser);
     }
 
     public void create(User user) {
+        newRoles(user);
         em.persist(user);
     }
 

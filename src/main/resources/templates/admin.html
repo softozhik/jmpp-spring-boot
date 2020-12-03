@@ -157,17 +157,16 @@
                                                                            th:value="${msg.getPassword()}" id="password">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
-                                                                   <!--
-                                                                    <label>Roles: <br><br>
-                                                                        <input type="checkbox" name="allRoles"
+
+                                                                   <!-- <label>Roles: <br><br>
+                                                                        <input type="checkbox" name="allRoles" th:value="${msg.getRoles()}"
                                                                                th:each="role : ${allRoles}"
                                                                                th:text="${role.getRole()} + ' '"
                                                                                th:value="${role.getRole()}"
 
                                                                         />
-                                                                    </label>
--->
-                                                                    <select class="custom-select w-auto" size="auto"  multiple name="allRoles">
+                                                                    </label>-->
+                                                                    <select class="custom-select w-auto" size="auto"  multiple name="allRoles" th:value="${msg.getRoles()}">
                                                                         <option th:each="role : ${allRoles}"
                                                                                 th:text="${role.getRole()}"
                                                                                 th:value="${role.getRole()}">
