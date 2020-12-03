@@ -19,11 +19,17 @@
     <input type="text" th:field="*{password}" id="password"/>
     <br/>
     <label>Roles:
-        <input type="checkbox" th:field="*{roles}" name="allRoles"
+        <!--<input type="checkbox" th:field="*{roles}" name="allRoles"
                th:each="role : ${allRoles}"
                th:text="${role.getRole()}"
                th:value="${role.getRole()}"
-        />
+        />-->
+        <select multiple name="allRoles" th:field="*{roles}"> <!--th:value="${msg.roles}"-->
+            <option th:each="role : ${allRoles}"
+                    th:text="${role.getRole()}"
+                    th:value="${role.getRole()}">
+            </option>
+        </select>
     </label>
     <br>
 

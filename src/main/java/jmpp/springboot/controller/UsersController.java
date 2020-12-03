@@ -30,13 +30,13 @@ public class UsersController {
 
 
     @GetMapping(value = "/admin")
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
     public String allUsers(ModelMap model, Authentication autUser) {
-        User username = userService.findUserByUsername(autUser.getName());
+        User loginUser = userService.findUserByUsername(autUser.getName());
         List<User> listUsers = userService.listAll();
-        model.addAttribute("username", username);
+        model.addAttribute("loginUser", loginUser);
         model.addAttribute("users", listUsers);
-        model.addAttribute("user", new User());
+        model.addAttribute("newUser", new User());
         model.addAttribute("allRoles", roleService.listAll());
         return "admin";
     }
@@ -52,10 +52,10 @@ public class UsersController {
     }
 
     @PostMapping("/admin/edit/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) { //, @RequestParam(value = "allRoles") String[] roles
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id, @RequestParam(value = "allRoles") String[] roles) { //
 //        System.out.println("новые роли: " + roles);
-//        user.setRoles(userService.newRoles(roles));
-//        System.out.println("обновляем пользователя: " + user);
+        user.setRoles(userService.updateRoles(roles));
+        System.out.println("обновляем пользователя: " + user);
         userService.update(user);
         return "redirect:/admin";
     }
@@ -71,6 +71,7 @@ public class UsersController {
     @PostMapping("/admin")
     public String create(@ModelAttribute("user") User user) { //, @RequestParam(value = "allRoles") String[] roles
 //        user.setRoles(userService.newRoles(roles));
+        System.out.println("новый пользователь: " + user);
         userService.create(user);
         return "redirect:/admin";
     }

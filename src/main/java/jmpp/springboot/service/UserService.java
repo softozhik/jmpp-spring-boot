@@ -32,6 +32,15 @@ public class UserService  {
         }
     }
 
+    public Set<Role> updateRoles(String[] roles) {
+        System.out.println("new roles: " + roles);
+        Set<Role> roleSet = new HashSet<>();
+        for (String roleName : roles) {
+            roleSet.add(roleService.findRoleByName(roleName));
+        }
+       return roleSet;
+    }
+
     public User newRoles(User user) {
         /*
         System.out.println("new roles: " + roles);
@@ -72,12 +81,13 @@ public class UserService  {
 
     @Transactional
     public void update(User changeUser) {
-        newRoles(changeUser);
+//        if (changeUser.getRoles() != null) newRoles(changeUser);
+
         em.merge(changeUser);
     }
 
     public void create(User user) {
-        newRoles(user);
+        if (user.getRoles() != null) newRoles(user);
         em.persist(user);
     }
 

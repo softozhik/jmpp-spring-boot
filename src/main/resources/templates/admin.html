@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -28,14 +29,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 -->
 
-<div class="container-fluid">
+<div class="container-fluid" sec:authorize="isAuthenticated()">
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <!--<a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>-->
         <span class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">
-        <b th:utext="${username.getName()}"></b><span th:utext="' ' + 'with roles:' + ' ' + ${username.getRoles()}"></span></span>
-        <!--<span class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" th:text="${roleSet}"></span>-->
-
+        <b th:utext="${loginUser.getName()}"></b><span th:utext="' ' + 'with roles:' + ' ' + ${loginUser.getRoles()}"></span></span>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
                 data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -51,7 +49,7 @@
         <div class="col-2 pr-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-                   aria-controls="v-pills-home" aria-selected="true">Admin</a>
+                   aria-controls="v-pills-home" aria-selected="true" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
                    aria-controls="v-pills-profile" aria-selected="false">User</a>
             </div>
@@ -59,7 +57,7 @@
         <div class="col-10 bg-light">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                     aria-labelledby="v-pills-home-tab">
+                     aria-labelledby="v-pills-home-tab" sec:authorize="hasRole('ROLE_ADMIN')">
 
                     <h2>Admin panel</h2>
 
@@ -123,56 +121,57 @@
                                                             </button>
                                                         </div>
                                                         <form th:method="POST"
-                                                              th:action="@{/admin/edit/{id}/(id=${msg.getId()})}">
+                                                              th:action="@{/admin/edit/{id}/(id=${msg.getId()})}" >
                                                             <div class="modal-body">
 
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="id" class="form-control-label">ID</label>
                                                                     <input disabled type="text" class="form-control" th:name="id"
-                                                                           th:value="${msg.getId()}" id="id">
+                                                                           th:value="${msg.id}" id="id">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="username"
                                                                            class="form-control-label">Login</label>
                                                                     <input type="text" class="form-control " th:name="username"
-                                                                           th:value="${msg.getUsername()}" id="username">
+                                                                           th:value="${msg.username}" id="username">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="name"
                                                                            class="form-control-label">Name</label>
                                                                     <input type="text" class="form-control"
                                                                            th:name="Name"
-                                                                           th:value="${msg.getName()}" id="name">
+                                                                           th:value="${msg.name}" id="name">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="email"
                                                                            class="form-control-label">Email</label>
                                                                     <input type="email" class="form-control" th:name="email"
-                                                                           th:value="${msg.getEmail()}" id="email">
+                                                                           th:value="${msg.email}" id="email">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
                                                                     <label for="password" class="form-control-label">Password</label>
                                                                     <input type="password" class="form-control "
                                                                            th:name="password"
-                                                                           th:value="${msg.getPassword()}" id="password">
+                                                                           th:value="${msg.password}" id="password">
                                                                 </div>
                                                                 <div class="form-group text-center font-weight-bold">
 
-                                                                   <!-- <label>Roles: <br><br>
-                                                                        <input type="checkbox" name="allRoles" th:value="${msg.getRoles()}"
+                                                                   <!--<label>Roles: <br><br>
+                                                                        <input type="checkbox" name="allRoles" th:value="${msg.roles}"
                                                                                th:each="role : ${allRoles}"
-                                                                               th:text="${role.getRole()} + ' '"
+                                                                               th:text="${role.getRole()}"
                                                                                th:value="${role.getRole()}"
 
                                                                         />
                                                                     </label>-->
-                                                                    <select class="custom-select w-auto" size="auto"  multiple name="allRoles" th:value="${msg.getRoles()}">
+                                                                    <label>
+                                                                    <select class="custom-select w-auto" size="auto" multiple name="allRoles" th:value="${msg.roles}"> <!--th:value="${msg.roles}"-->
                                                                         <option th:each="role : ${allRoles}"
                                                                                 th:text="${role.getRole()}"
                                                                                 th:value="${role.getRole()}">
                                                                         </option>
                                                                     </select>
-
+                                                                    </label>
                                                                 </div>
 
                                                             </div>
@@ -181,10 +180,7 @@
                                                                         data-dismiss="modal">Close
                                                                 </button>
 
-                                                                <form
-                                                                        th:action="@{/admin/edit/{id}(id=${msg.getId()})}">
                                                                     <button type="submit" class="btn btn-info">Edit</button>
-                                                                </form>
 
                                                             </div>
                                                         </form>
@@ -276,28 +272,77 @@
                         </div>
                         <div class="tab-pane fade" id="nav-newuser" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                            <form th:method="POST" th:action="@{/admin}" th:object="${user}">
-                                <label for="nusername">Enter Username: </label>
-                                <input type="text" th:field="*{username}" id="nusername"/>
+                            <th scope="row">
+                                                                <!-- New -->
+                                <div class="mx-auto" style="width: 40vh" tabindex="-1" role="dialog">
+                                    <div role="document">
+                                        <div >
+                                            <div >
+                                                <button type="button" class="close"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <form th:method="POST"
+                                                  th:action="@{/admin}" th:object="${newUser}" >
+                                                <div class="modal-body">
+                                                    <div class="form-group text-center font-weight-bold">
+                                                        <label for="nusername"
+                                                               class="form-control-label">Login</label>
+                                                        <input type="text" class="form-control " th:name="nusername"
+                                                               th:field="*{username}" id="nusername">
+                                                    </div>
+                                                    <div class="form-group text-center font-weight-bold">
+                                                        <label for="nname"
+                                                               class="form-control-label">Name</label>
+                                                        <input type="text" class="form-control"
+                                                               th:name="Name"
+                                                               th:field="*{name}" id="nname">
+                                                    </div>
+                                                    <div class="form-group text-center font-weight-bold">
+                                                        <label for="nemail"
+                                                               class="form-control-label">Email</label>
+                                                        <input type="email" class="form-control" th:name="email"
+                                                               th:field="*{email}" id="nemail">
+                                                    </div>
+                                                    <div class="form-group text-center font-weight-bold">
+                                                        <label for="npassword" class="form-control-label">Password</label>
+                                                        <input type="password" class="form-control "
+                                                               th:name="password"
+                                                               th:field="*{password}" id="npassword">
+                                                    </div>
+                                                    <div class="form-group text-center font-weight-bold">
 
-                                <label for="nname">Enter name: </label>
-                                <input type="text" th:field="*{name}" id="nname"/>
+                                                        <!--<label>Roles: <br><br>
+                                                            <input type="checkbox" name="allRoles"
+                                                                   th:each="role : ${allRoles}"
+                                                                   th:text="${role.getRole()} + ' '"
+                                                                   th:value="${role.getRole()}"
 
-                                <label for="nemail">Enter e-mail: </label>
-                                <input type="email" th:field="*{email}" id="nemail"/>
+                                                            />
+                                                        </label>-->
+                                                        <label>
+                                                         <select class="custom-select w-auto" size="auto"  multiple name="allRoles" th:field="*{roles}">
+                                                             <option th:each="role : ${allRoles}"
+                                                                     th:text="${role.getRole()}"
+                                                                     th:value="${role.getRole()}">
+                                                             </option>
+                                                         </select>
+                                                        </label>
+                                                    </div>
 
-                                <label for="npassword">Enter password: </label>
-                                <input type="password" th:field="*{password}" id="npassword"/>
-                                <br/>
-                                <select class="custom-select" size="3" multiple name="allRoles">
-                                    <option th:each="role : ${allRoles}"
-                                            th:text="${role.getRole()}"
-                                            th:value="${role.getRole()}">
-                                    </option>
-                                </select>
+                                                </div>
+                                                <div >
+                                                        <button type="submit" class="btn btn-info">Save</button>
 
-                                <input type="submit" value="Create!"/>
-                            </form>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- New -->
+
+                            </th>
 
                         </div>
                     </div>
@@ -307,7 +352,28 @@
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
                     <h2>User info</h2>
-
+                    <table >
+                        <tr align="left">
+                            <th>ID</th>
+                            <td th:text="${loginUser.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Username</th>
+                            <td th:text="${loginUser.getUsername()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td th:text="${loginUser.getName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>E-mail</th>
+                            <td th:text="${loginUser.getEmail()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Roles</th>
+                            <td th:text="${loginUser.getRoles()}"></td>
+                        </tr>
+                    </table>
 
                 </div>
             </div>
