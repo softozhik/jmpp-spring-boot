@@ -40,17 +40,17 @@ public class UsersController {
 
     @GetMapping("/admin/edit/{id}")
     public String edit(ModelMap model, @PathVariable("id") Long id) {
-        System.out.println("все роли: " + roleService.listAll());
-        System.out.println("текущий пользователь: " + userService.getUser(id));
+//        System.out.println("все роли: " + roleService.listAll());
+//        System.out.println("текущий пользователь: " + userService.getUser(id));
         model.addAttribute("allRoles", roleService.listAll());
         model.addAttribute("user", userService.getUser(id));
         return "edit";
     }
 
     @PostMapping("/admin/edit/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id, @RequestParam(value = "allRoles") String[] roles) {
-        System.out.println("новые роли: " + roles);
-        user.setRoles(userService.newRoles(roles));
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) { // , @RequestParam(value = "allRoles") String[] roles
+//        System.out.println("новые роли: " + roles);
+//        user.setRoles(userService.newRoles(roles));
 //        System.out.println("обновляем пользователя: " + user);
         userService.update(user);
         return "redirect:/admin";
@@ -65,8 +65,8 @@ public class UsersController {
     }
 
     @PostMapping("/admin")
-    public String create(@ModelAttribute("user") User user, @RequestParam(value = "allRoles") String[] roles) {
-        user.setRoles(userService.newRoles(roles));
+    public String create(@ModelAttribute("user") User user) { //, @RequestParam(value = "allRoles") String[] roles
+//        user.setRoles(userService.newRoles(roles));
         userService.create(user);
         return "redirect:/admin";
     }
