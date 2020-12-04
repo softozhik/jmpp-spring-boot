@@ -2,7 +2,6 @@ package jmpp.springboot.controller;
 
 import jmpp.springboot.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,16 +19,7 @@ public class UsersController {
     @Autowired
     private RoleService roleService;
 
-
-    @GetMapping(value = "/")
-    public String hello(ModelMap model) {
-        String messages = "Hello!";
-        model.addAttribute("messages", messages);
-        return "hello";
-    }
-
-
-    @GetMapping(value = "/admin")
+    @GetMapping(value = "/main")
 //    @Secured("ROLE_ADMIN")
     public String allUsers(ModelMap model, Authentication autUser) {
         User loginUser = userService.findUserByUsername(autUser.getName());
@@ -38,66 +28,31 @@ public class UsersController {
         model.addAttribute("users", listUsers);
         model.addAttribute("newUser", new User());
         model.addAttribute("allRoles", roleService.listAll());
-        return "admin";
+        return "main";
     }
 
-
-    @GetMapping("/admin/edit/{id}")
-    public String edit(ModelMap model, @PathVariable("id") Long id) {
-        System.out.println("все роли: " + roleService.listAll());
-        System.out.println("текущий пользователь: " + userService.getUser(id));
-        model.addAttribute("allRoles", roleService.listAll());
-        model.addAttribute("user", userService.getUser(id));
-        return "edit";
-    }
-
-    @PostMapping("/admin/edit/{id}")
+    @PostMapping("/main/edit/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id, @RequestParam(value = "allRoles") String[] roles) { //
 //        System.out.println("новые роли: " + roles);
         user.setRoles(userService.updateRoles(roles));
-        System.out.println("обновляем пользователя: " + user);
+//        System.out.println("обновляем пользователя: " + user);
         userService.update(user);
-        return "redirect:/admin";
+        return "redirect:/main";
     }
 
-
-    @GetMapping("/admin/new")
-    public String newUser(@ModelAttribute("user") User user, ModelMap model) {
-        model.addAttribute("allRoles", roleService.listAll());
-        model.addAttribute("user", new User());
-        return "new";
-    }
-
-    @PostMapping("/admin")
+    @PostMapping("/main")
     public String create(@ModelAttribute("user") User user) { //, @RequestParam(value = "allRoles") String[] roles
-//        user.setRoles(userService.newRoles(roles));
-        System.out.println("новый пользователь: " + user);
+//        user.setRoles(userService.updateRoles(roles));
+//        System.out.println("новый пользователь: " + user);
         userService.create(user);
-        return "redirect:/admin";
+        return "redirect:/main";
     }
 
 
-    @PostMapping("/admin/delete/{id}")
+    @PostMapping("/main/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
-        return "redirect:/admin";
+        return "redirect:/main";
     }
-
-    @GetMapping("/user")
-    public String currentUser(ModelMap model, Authentication autUser) {
-        User user = userService.findUserByUsername(autUser.getName());
-//        System.out.println("LoggedIn: " + user);
-        model.addAttribute("user", user);
-        return "user";
-    }
-
-//    @ModelAttribute("logoutLink")
-////    @GetMapping(value = "logout")
-//    @GetMapping("/logout")
-//    public String logout() {
-//        return "redirect:/";
-//    }
-
-
 
 }

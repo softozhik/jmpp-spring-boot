@@ -42,13 +42,6 @@ public class UserService  {
     }
 
     public User newRoles(User user) {
-        /*
-        System.out.println("new roles: " + roles);
-        Set<Role> roleSet = new HashSet<>();
-        for (String roleName : roles) {
-            roleSet.add(roleService.findRoleByName(roleName));
-        }
-        */
         Set<Role> roleSet = new HashSet<>();
         Iterator iterator = user.getRoles().iterator();
         while (iterator.hasNext()) {
@@ -82,7 +75,6 @@ public class UserService  {
     @Transactional
     public void update(User changeUser) {
 //        if (changeUser.getRoles() != null) newRoles(changeUser);
-
         em.merge(changeUser);
     }
 

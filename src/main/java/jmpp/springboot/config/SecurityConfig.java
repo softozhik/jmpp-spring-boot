@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // защищенные URL
 //                .antMatchers("/hello").access("hasAnyRole('ADMIN')").anyRequest().authenticated()
 //                .antMatchers("/admin/**").access("hasAnyRole('ADMIN')")
-                .antMatchers("/admin").authenticated()
+                .antMatchers("/main").authenticated()
 //                .antMatchers("/bsadmin/**").access("hasAnyRole('ADMIN')")
 //                .antMatchers("/user").authenticated()
 //                .antMatchers("/admin").access("hasAnyRole('ADMIN')")
