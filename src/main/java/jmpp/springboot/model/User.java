@@ -55,7 +55,7 @@ public class User {
         this.roles = roles;
     }
 
-    public User(String username, String name, String email, String password, String[] roles) {
+/*    public User(String username, String name, String email, String password, String[] roles) {
 //        this.id = id;
         this.username = username;
         this.name = name;
@@ -63,7 +63,7 @@ public class User {
         this.password = password;
         Set<Role> roleSet = new UserService().newRoles(roles);
         this.roles = roleSet;
-    }
+    }*/
 
     public Long getId() {
         return id;
