@@ -21,7 +21,7 @@ fetch("http://localhost:8080/api").then(
                             data-target="#edit">Edit</button></th>`;
                         user += `<th scope="row">
                             <button type="button" class="btn btn-danger" data-toggle="modal"
-                            ata-target="#delete">Delete</button></td>`;
+                            ata-target="#delete">Delete</button></td></tr>`;
                     }
                 )
                     document.getElementById("listUsers").innerHTML = user;
