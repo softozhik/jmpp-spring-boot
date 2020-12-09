@@ -1,12 +1,15 @@
 package jmpp.springboot.controller;
 
+import jmpp.springboot.model.Role;
 import jmpp.springboot.model.User;
 import jmpp.springboot.service.RoleService;
 import jmpp.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class UserRestController {
@@ -22,14 +25,19 @@ public class UserRestController {
         return listUsers;
     }
 
-    @GetMapping("/api/{id")
+    @GetMapping("/api/allroles")
+    public Set<Role> allRoles() {
+        return new HashSet<Role>(roleService.listAll());
+    }
+
+    @GetMapping("/api/{id}")
     public User getUser(@PathVariable Long id) {
         User user = userService.getUser(id);
         return user;
     }
 
-    @PostMapping("/api/edit/{id}")
-    public User update(@RequestBody User user, @PathVariable Long id) {
+    @PostMapping("/api/edit")
+    public User update(@RequestBody User user) {
         userService.update(user);
         return user;
     }
