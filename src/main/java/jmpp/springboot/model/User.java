@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -108,6 +109,10 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
+
+//    public String[] getRolesString() {
+//        return roles.toArray(new String[0]);
+//    }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;

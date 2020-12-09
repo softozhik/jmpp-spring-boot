@@ -62,6 +62,7 @@ public class UserService  {
 //        return userDao.getOne(id);
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class);
         User user = query.setParameter("id", id).getSingleResult();
+
         return user;
     }
 
@@ -75,6 +76,7 @@ public class UserService  {
     @Transactional
     public void update(User changeUser) {
 //        if (changeUser.getRoles() != null) newRoles(changeUser);
+
         em.merge(changeUser);
     }
 
