@@ -75,7 +75,7 @@ public class UserService  {
 
     @Transactional
     public void update(User changeUser) {
-//        if (changeUser.getRoles() != null) newRoles(changeUser);
+        if (changeUser.getRoles() != null) newRoles(changeUser);
 
         em.merge(changeUser);
     }

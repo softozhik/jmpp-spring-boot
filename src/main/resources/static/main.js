@@ -20,6 +20,7 @@ function openEditTab(id) {
 function redrawTable(userList) {
     var $table = $('.table-users tbody');
     $table.empty();
+    console.log(userList);
     userList.forEach((user, index) => {
         var authorities = user.roles.map(function(a) { return a.role ; }).join('<br/>');
         var btnEdit = '<a class="btn btn-primary btn-edit" data-id="' + user.id + '">Edit</a>';
@@ -58,7 +59,6 @@ function redrawTableUser(userList) {
     });
 
 }
-/*
 function updateSoloUser() {
     $.ajax({
         url: '/admin/api/all',
@@ -84,7 +84,7 @@ function getCurrentUser(id) {
         success: function(data) { },
         error: function() { showError('На сервере произошла ошибка'); }
     });
-}*/
+}
 
 function getUser(id, func) {
     $.ajax({
@@ -132,12 +132,12 @@ function updateUser() {
     }
     $.ajax({
         url: '/api/edit',
-        type: 'POST',
+        type: 'PUT',
         data: JSON.stringify(userData),
         dataType: 'json',
         contentType: 'application/json',
-        success: function( data) {
-            redrawTable(data);
+        success: function(data) {
+            updateUsers();
             $('#modal-edit').modal('toggle');
         },
         error: function() { showError('На сервере произошла ошибка'); }

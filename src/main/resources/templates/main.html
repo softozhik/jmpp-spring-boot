@@ -1,48 +1,67 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org/extras/spring-security" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-
-
-    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>all users</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>Admin users</title>
 </head>
-<body>
+<body style="height: 100% !important;">
+<!--
+ Optional JavaScript; choose one of the two!
 
-<div th:fragment="header">
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="text-light" th:text="${loginUser.getName()} + ' with roles ' + ${loginUser.getRoles()}"/>
-        <a href="/logout" class="text-primary pr-3">Logout</a>
+ Option 1: jQuery and Bootstrap Bundle (includes Popper)
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+ Option 2: jQuery, Popper.js, and Bootstrap JS
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+-->
+
+<div class="container-fluid" sec:authorize="isAuthenticated()">
+
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <span class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">
+            Logged in
+        <b th:utext="${loginUser.getName()}"></b><span
+                th:utext="' ' + 'with roles:' + ' ' + ${loginUser.getRoles()}"></span></span>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+                data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
     </nav>
-</div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-2">
-            <br>
-
+    <div style="height: 100vh" class="row">
+        <div class="col-2 pr-0">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#myTab" role="tab"
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
                    aria-controls="v-pills-home" aria-selected="true" sec:authorize="hasRole('ROLE_ADMIN')">Admin</a>
                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
                    aria-controls="v-pills-profile" aria-selected="false">User</a>
             </div>
-
-            <!--
-                        <ul class="nav nav-pills flex-column">
-                            <li class="nav-item">
-                                <a href="#myTab" class="nav-link active">Admin</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/page/user" class="nav-link">User</a>
-                            </li>
-                        </ul>
-                        -->
         </div>
-
-        <div class="col-sm-10 bg-light px-5" style="height: 100vh">
+        <div class="col-10 bg-light">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab" sec:authorize="hasRole('ROLE_ADMIN')">
             <h1>Admin panel</h1>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -173,7 +192,6 @@
                     </div>
                 </div>
 
-            </div>
 
             <!--                nav user-->
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -196,13 +214,16 @@
                         </tr>
                     </table>
                 </div>
+
             </div>
+
 
             <!--                nav user-->
 
-        </div>
+                </div>
+            </div>
 
-    </div>
+            </div>
 
 </div>
 
@@ -264,7 +285,7 @@
     </div>
 </div>
 
-
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"

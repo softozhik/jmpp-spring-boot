@@ -25,7 +25,7 @@ public class UsersController {
         User loginUser = userService.findUserByUsername(autUser.getName());
         List<User> listUsers = userService.listAll();
         model.addAttribute("loginUser", loginUser);
-        model.addAttribute("users", listUsers);
+        model.addAttribute("userList", listUsers);
 //        model.addAttribute("newUser", new User());
 //        model.addAttribute("allRoles", roleService.listAll());
         return "main";

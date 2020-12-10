@@ -46,7 +46,7 @@ public class UserRestController {
     }
 */
 
-    @PostMapping("/api/edit")
+    @PutMapping("/api/edit")
     public User update(@RequestBody User user) {
         userService.update(user);
         return user;
