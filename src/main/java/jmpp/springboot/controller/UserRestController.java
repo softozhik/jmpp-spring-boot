@@ -25,22 +25,26 @@ public class UserRestController {
         return listUsers;
     }
 
+/*
     @GetMapping("/api/allroles")
     public Set<Role> allRoles() {
         return new HashSet<Role>(roleService.listAll());
     }
+*/
 
     @GetMapping("/api/{id}")
     public User getUser(@PathVariable Long id) {
-//        User user = userService.getUser(id);
-        return getUser(id);
+        User user = userService.getUser(id);
+        return user;
     }
 
+/*
     @GetMapping("/api/allroles")
     public List<Role> listRoles() {
 //        List<Role> listRoles = roleService.listAll();
         return listRoles();
     }
+*/
 
     @PostMapping("/api/edit")
     public User update(@RequestBody User user) {
@@ -54,7 +58,7 @@ public class UserRestController {
         return user;
     }
 
-    @PostMapping("api/delete/{id}")
+    @DeleteMapping("/api/delete/{id}")
     public String delete(@PathVariable Long id) {
         userService.deleteById(id);
         return "deleted user whith id " + id;
