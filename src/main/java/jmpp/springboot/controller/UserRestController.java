@@ -32,8 +32,14 @@ public class UserRestController {
 
     @GetMapping("/api/{id}")
     public User getUser(@PathVariable Long id) {
-        User user = userService.getUser(id);
-        return user;
+//        User user = userService.getUser(id);
+        return getUser(id);
+    }
+
+    @GetMapping("/api/allroles")
+    public List<Role> listRoles() {
+//        List<Role> listRoles = roleService.listAll();
+        return listRoles();
     }
 
     @PostMapping("/api/edit")

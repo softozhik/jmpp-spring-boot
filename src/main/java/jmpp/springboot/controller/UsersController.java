@@ -30,6 +30,7 @@ public class UsersController {
         model.addAttribute("allRoles", roleService.listAll());
         return "main";
     }
+/*
 
     @PostMapping("/main/edit/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id, @RequestParam(value = "allRoles") String[] roles) { //
@@ -55,5 +56,6 @@ public class UsersController {
         return "redirect:/main";
     }
 
+*/
 
 }
