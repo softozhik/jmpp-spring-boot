@@ -114,7 +114,8 @@ function createUser() {
         dataType: 'json',
         contentType: 'application/json',
         success: function(data) {
-            redrawTable(data);
+            // redrawTable(data);
+            updateUsers();
             $('#list-tab').click();
             $('#new-user-form').trigger('reset');
         },
@@ -150,9 +151,10 @@ function deleteUser(id) {
         type: 'delete',
         dataType: 'json',
         contentType: 'application/json',
-        success: function(data) { redrawTable(data); },
-        error: function() { showError('На сервере произошла ошибка'); }
+        // success: function(data) { redrawTable(data); },
+        // error: function() { showError('На сервере произошла ошибка'); }
     });
+    setTimeout(() => {  updateUsers(); }, 500);
 }
 
 function updateUsers() {
