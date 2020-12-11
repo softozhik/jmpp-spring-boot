@@ -37,14 +37,6 @@ public class Role {
         this.role = role;
     }
 
-//    public Set<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Set<User> users) {
-//        this.users = users;
-//    }
-
     public Role(Long id, String role) {
         this.id = id;
         this.role = role;

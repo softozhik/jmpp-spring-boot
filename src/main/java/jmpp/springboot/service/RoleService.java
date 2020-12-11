@@ -14,7 +14,7 @@ import java.util.List;
 public class RoleService {
 
     @Autowired
-    EntityManager em;
+    private EntityManager em;
 
     public List<Role> listAll() {
         List<Role> allRoles;
@@ -22,14 +22,18 @@ public class RoleService {
         return allRoles;
     }
 
+    @Transactional
     public void create(Long id, String role) {
         em.persist(new Role(id, role));
     }
 
     public Role getRole(Long id) {
-        TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.id = :id", Role.class);
-        Role role = query.setParameter("id", id).getSingleResult();
-        return role;
+        try {
+            TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.id = :id", Role.class);
+            return query.setParameter("id", id).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void addRoles() {
@@ -46,8 +50,7 @@ public class RoleService {
 
     public Role findRoleByName(String roleName) {
         TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.role = :role", Role.class);
-        Role role = query.setParameter("role", roleName).getSingleResult();
-        return role;
+        return query.setParameter("role", roleName).getSingleResult();
     }
 
 }

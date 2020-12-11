@@ -1,13 +1,7 @@
 package jmpp.springboot.model;
 
-import jmpp.springboot.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -40,15 +34,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, String name, String email, String password) {
-        this.username = username;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
     public User(String username, String name, String email, String password, Set<Role> roles) {
-//        this.id = id;
         this.username = username;
         this.name = name;
         this.email = email;
@@ -56,15 +42,6 @@ public class User {
         this.roles = roles;
     }
 
-/*    public User(String username, String name, String email, String password, String[] roles) {
-//        this.id = id;
-        this.username = username;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        Set<Role> roleSet = new UserService().newRoles(roles);
-        this.roles = roleSet;
-    }*/
 
     public Long getId() {
         return id;
@@ -109,10 +86,6 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
-
-//    public String[] getRolesString() {
-//        return roles.toArray(new String[0]);
-//    }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;

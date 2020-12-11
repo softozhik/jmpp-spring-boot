@@ -1,23 +1,17 @@
 package jmpp.springboot.controller;
 
-import jmpp.springboot.model.Role;
 import jmpp.springboot.model.User;
-import jmpp.springboot.service.RoleService;
 import jmpp.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class UserRestController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleService roleService;
 
     @GetMapping("/api")
     public List<User> listUsers() {

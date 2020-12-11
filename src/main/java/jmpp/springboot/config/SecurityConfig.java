@@ -29,17 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userDao;
 
-
-
-//    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        System.out.println("------------------\n" + "старт метода аутентификации" + "\n------------------");
-//        auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("старт метода аутентификации");
         roleDao.addRoles();
         userDao.addAdmin();
         auth.userDetailsService(userService);
