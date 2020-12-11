@@ -25,26 +25,11 @@ public class UserRestController {
         return listUsers;
     }
 
-/*
-    @GetMapping("/api/allroles")
-    public Set<Role> allRoles() {
-        return new HashSet<Role>(roleService.listAll());
-    }
-*/
-
     @GetMapping("/api/{id}")
     public User getUser(@PathVariable Long id) {
         User user = userService.getUser(id);
         return user;
     }
-
-/*
-    @GetMapping("/api/allroles")
-    public List<Role> listRoles() {
-//        List<Role> listRoles = roleService.listAll();
-        return listRoles();
-    }
-*/
 
     @PutMapping("/api/edit")
     public User update(@RequestBody User user) {

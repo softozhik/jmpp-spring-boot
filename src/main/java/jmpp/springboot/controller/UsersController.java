@@ -1,6 +1,6 @@
 package jmpp.springboot.controller;
 
-import jmpp.springboot.service.RoleService;
+//import jmpp.springboot.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import jmpp.springboot.model.User;
 import jmpp.springboot.service.UserService;
 
-import java.util.List;
+//import java.util.List;
 
 @Controller
 public class UsersController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleService roleService;
+//    @Autowired
+//    private RoleService roleService;
 
     @GetMapping(value = "/main")
 //    @Secured("ROLE_ADMIN")
     public String allUsers(ModelMap model, Authentication autUser) {
         User loginUser = userService.findUserByUsername(autUser.getName());
-        List<User> listUsers = userService.listAll();
+//        List<User> listUsers = userService.listAll();
         model.addAttribute("loginUser", loginUser);
-        model.addAttribute("userList", listUsers);
+//        model.addAttribute("userList", listUsers);
 //        model.addAttribute("newUser", new User());
 //        model.addAttribute("allRoles", roleService.listAll());
         return "main";

@@ -57,8 +57,9 @@ function redrawTableUser(userList) {
             '<td>' + authorities + '</td>' +
             '</tr>');
     });
-
 }
+/*
+
 function updateSoloUser() {
     $.ajax({
         url: '/admin/api/all',
@@ -72,8 +73,8 @@ function updateSoloUser() {
             showError('На сервере произошла ошибка');
         }
     });
-
 }
+*/
 
 function getCurrentUser(id) {
     $.ajax({
@@ -101,9 +102,6 @@ function getUser(id, func) {
 
 function createUser() {
     var userData = $('#new-user-form').jsonify();
-    // if (!validateNewUser(userData)) {
-    //     return;
-    // }
      if (typeof userData.roles === 'string') {
          userData.roles = [userData.roles];
      }
@@ -167,33 +165,6 @@ function updateUsers() {
         error: function() { showError('На сервере произошла ошибка'); }
     });
 }
-
-/*
-function validateNewUser(user) {
-    if (!user.Name) {
-        showError('Не заполнено поле Name');
-        return false;
-    }
-
-    if (!user.email) {
-        showError('Не заполнено поле email');
-        return false;
-    }
-    if (!user.username) {
-        showError('Не заполнено поле login');
-        return false;
-    }
-    if (!user.password) {
-        showError('Не заполнено поле password');
-        return false;
-    }
-    if (!user.roles) {
-        showError('Не заполнено поле Role');
-        return false;
-    }
-    return true;
-}
-*/
 
 function showError(text) {
     $('#modal-error-text').text(text);
